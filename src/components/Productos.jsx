@@ -3,9 +3,9 @@ import Navbar from "./Navbar";
 
 function Productos() {
   const productos = [
-    { id: 1, nombre: "Zapatos" },
-    { id: 2, nombre: "Camisa" },
-    { id: 3, nombre: "Pantalón" },
+    { id: 1, nombre: "Juguetes" },
+    { id: 2, nombre: "Cafe" },
+    { id: 3, nombre: "Sanguchito" },
   ];
 
   return (

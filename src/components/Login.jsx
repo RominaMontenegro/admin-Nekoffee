@@ -16,7 +16,16 @@ function Login() {
   };
 
   return (
-    <div style={{ maxWidth: 350, margin: "80px auto", padding: 20, backgroundColor: "white", borderRadius: 8, boxShadow: "0 0 10px rgba(0,0,0,0.1)" }}>
+    <div
+      style={{
+        maxWidth: 350,
+        margin: "80px auto",
+        padding: 20,
+        backgroundColor: "white",
+        borderRadius: 8,
+        boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+      }}
+    >
       <h2 style={{ textAlign: "center", marginBottom: 20 }}>Iniciar Sesión</h2>
       <input
         type="text"
