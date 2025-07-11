@@ -6,6 +6,7 @@ import Usuarios from "./components/Usuarios";
 import Productos from "./components/Productos";
 import Estadisticas from "./components/Estadisticas";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AnalisisPrecios from "./components/AnalisisPrecios";
 
 function App() {
   return (
@@ -43,6 +44,16 @@ function App() {
           element={
             <ProtectedRoute>
               <Estadisticas />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Nueva ruta para AnalisisPrecios */}
+        <Route
+          path="/analisisprecios"
+          element={
+            <ProtectedRoute>
+              <AnalisisPrecios />
             </ProtectedRoute>
           }
         />
