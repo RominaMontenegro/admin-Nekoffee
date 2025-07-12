@@ -1,17 +1,38 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { login } from "../store/authSlice";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const [user, setUser] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    if (user.trim().toLowerCase() === "admin") {
-      localStorage.setItem("isAuth", "true");
+  const handleLogin = async () => {
+    try {
+      // Llamada al endpoint de autenticación
+      const res = await axios.post("http://localhost:3000/tokens", {
+        email,
+        password,
+      });
+      const { token, role } = res.data;
+
+      // Solo permitimos admins
+      if (role !== "admin") {
+        return setError("Access restricted to admins only");
+      }
+
+      // Guardamos en Redux
+      dispatch(login({ token, role }));
+
+      // Redirigimos al panel de administración
       navigate("/admin");
-    } else {
-      setError("Usuario incorrecto, poné 'admin'");
+    } catch (err) {
+      console.error(err);
+      setError(err.response?.data?.error || "Login failed");
     }
   };
 
@@ -24,18 +45,50 @@ function Login() {
         backgroundColor: "white",
         borderRadius: 8,
         boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+        textAlign: "center",
       }}
     >
-      <h2 style={{ textAlign: "center", marginBottom: 20 }}>Iniciar Sesión</h2>
+      <h2 style={{ marginBottom: 20 }}>Admin Login</h2>
       <input
-        type="text"
-        placeholder="Usuario"
-        value={user}
-        onChange={(e) => setUser(e.target.value)}
-        style={{ width: "100%", marginBottom: 15 }}
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        style={{
+          width: "100%",
+          marginBottom: 10,
+          padding: "8px",
+          borderRadius: "4px",
+          border: "1px solid #ccc",
+        }}
       />
-      <button onClick={handleLogin} style={{ width: "100%" }}>
-        Entrar
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        style={{
+          width: "100%",
+          marginBottom: 15,
+          padding: "8px",
+          borderRadius: "4px",
+          border: "1px solid #ccc",
+        }}
+      />
+      <button
+        onClick={handleLogin}
+        style={{
+          width: "100%",
+          padding: "10px",
+          backgroundColor: "#c49899",
+          color: "#fff",
+          border: "none",
+          borderRadius: "4px",
+          fontWeight: "bold",
+          cursor: "pointer",
+        }}
+      >
+        Login
       </button>
       {error && <p style={{ color: "red", marginTop: 10 }}>{error}</p>}
     </div>

@@ -1,0 +1,51 @@
+/* Productos.css */
+
+.productos-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #f2e5d0;
+  border-radius: 8px;
+}
+
+.productos-container h2 {
+  text-align: center;
+  color: #a67b5c;
+  margin-bottom: 1rem;
+}
+
+.productos-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.productos-table th,
+.productos-table td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.productos-table th {
+  background: #c49899;
+  color: #fff;
+}
+
+.productos-table tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.productos-table button {
+  margin-right: 0.5rem;
+  background: #c49899;
+  border: none;
+  color: #fff;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.productos-table button:hover {
+  background: #a67b5c;
+}

@@ -1,0 +1,77 @@
+/* OrdersList.css */
+
+.orders-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #f2e5d0;
+  border-radius: 8px;
+}
+
+.orders-container h2 {
+  text-align: center;
+  color: #a67b5c;
+  margin-bottom: 1rem;
+}
+
+.no-orders {
+  text-align: center;
+  color: #7b4f44;
+  margin-top: 2rem;
+}
+
+.order-card {
+  background: #fff;
+  border: 1px solid #c49899;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.order-header {
+  background: #c49899;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+}
+
+.order-items {
+  padding: 1rem;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.order-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 1rem;
+}
+
+.item-details {
+  flex: 1;
+}
+
+.order-total {
+  background: #e0bea0;
+  padding: 0.75rem 1rem;
+  text-align: right;
+  font-weight: 600;
+  color: #4e342e;
+}
+
+@media (max-width: 600px) {
+  .order-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .order-item img {
+    margin-bottom: 0.5rem;
+  }
+}

@@ -1,0 +1,87 @@
+/* Usuarios.css */
+
+.usuarios-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #f2e5d0;
+  border-radius: 8px;
+}
+
+.usuarios-container h2 {
+  text-align: center;
+  color: #a67b5c;
+  margin-bottom: 1rem;
+}
+
+.usuario-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.usuario-form input {
+  padding: 0.5rem;
+  border: 1px solid #c49899;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+.usuario-form button {
+  background: #c49899;
+  border: none;
+  color: #fff;
+  padding: 0.6rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.usuario-form button:hover {
+  background: #a67b5c;
+}
+
+.usuarios-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.usuarios-table th,
+.usuarios-table td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.usuarios-table th {
+  background: #c49899;
+  color: #fff;
+}
+
+.usuarios-table tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.usuarios-table button {
+  margin-right: 0.5rem;
+  background: #c49899;
+  border: none;
+  color: #fff;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.usuarios-table button:hover {
+  background: #a67b5c;
+}
+
+.usuarios-table input {
+  width: 100%;
+  padding: 0.4rem;
+  border: 1px solid #c49899;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}

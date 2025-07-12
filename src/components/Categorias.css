@@ -1,0 +1,79 @@
+/* Categorias.css */
+
+.categorias-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #f2e5d0;
+  border-radius: 8px;
+}
+
+.categorias-container h2 {
+  text-align: center;
+  color: #a67b5c;
+  margin-bottom: 1rem;
+}
+
+.categoria-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.categoria-form input {
+  padding: 0.5rem;
+  border: 1px solid #c49899;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+.categoria-form button {
+  background: #c49899;
+  border: none;
+  color: #fff;
+  padding: 0.6rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.categoria-form button:hover {
+  background: #a67b5c;
+}
+
+.categoria-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.categoria-table th,
+.categoria-table td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.categoria-table th {
+  background: #c49899;
+  color: #fff;
+}
+
+.categoria-table tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.categoria-table button {
+  margin-right: 0.5rem;
+  background: #c49899;
+  border: none;
+  color: #fff;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.categoria-table button:hover {
+  background: #a67b5c;
+}
