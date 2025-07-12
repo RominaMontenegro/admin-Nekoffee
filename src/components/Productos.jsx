@@ -7,23 +7,28 @@ import "./Productos.css";
 
 export default function Productos() {
   const [productos, setProductos] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [newProduct, setNewProduct] = useState({
     title: "",
     price: "",
     stock: "",
+    categoryId: "",
   });
   const [editingId, setEditingId] = useState(null);
   const [editProduct, setEditProduct] = useState({
     title: "",
     price: "",
     stock: "",
+    categoryId: "",
   });
+
   const token = useSelector((state) => state.auth.token);
   const role = useSelector((state) => state.auth.role);
 
-  // 1. Cargar productos
+  // Fetch products & categories on mount
   useEffect(() => {
     fetchProductos();
+    fetchCategories();
   }, []);
 
   const fetchProductos = async () => {
@@ -37,7 +42,18 @@ export default function Productos() {
     }
   };
 
-  // 2. Crear producto (solo admin)
+  const fetchCategories = async () => {
+    try {
+      const res = await axios.get("http://localhost:3000/categories", {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+      setCategories(res.data);
+    } catch (err) {
+      console.error("Error loading categories:", err);
+    }
+  };
+
+  // Create product (admin only)
   const handleCreate = async (e) => {
     e.preventDefault();
     try {
@@ -47,10 +63,11 @@ export default function Productos() {
           title: newProduct.title,
           price: parseFloat(newProduct.price),
           stock: parseInt(newProduct.stock, 10),
+          categoryId: parseInt(newProduct.categoryId, 10),
         },
         { headers: { Authorization: `Bearer ${token}` } },
       );
-      setNewProduct({ title: "", price: "", stock: "" });
+      setNewProduct({ title: "", price: "", stock: "", categoryId: "" });
       fetchProductos();
     } catch (err) {
       console.error("Error creating product:", err);
@@ -58,7 +75,7 @@ export default function Productos() {
     }
   };
 
-  // 3. Borrar producto (solo admin)
+  // Delete product (admin only)
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this product?")) return;
     try {
@@ -72,13 +89,14 @@ export default function Productos() {
     }
   };
 
-  // 4. Iniciar edición inline
+  // Start inline edit
   const startEdit = (p) => {
     setEditingId(p.id);
     setEditProduct({
       title: p.title,
       price: p.price.toString(),
       stock: p.stock.toString(),
+      categoryId: p.categoryId?.toString() || "",
     });
   };
 
@@ -86,7 +104,7 @@ export default function Productos() {
     setEditProduct({ ...editProduct, [e.target.name]: e.target.value });
   };
 
-  // 5. Guardar edición
+  // Save inline edit
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
@@ -96,6 +114,7 @@ export default function Productos() {
           title: editProduct.title,
           price: parseFloat(editProduct.price),
           stock: parseInt(editProduct.stock, 10),
+          categoryId: parseInt(editProduct.categoryId, 10),
         },
         { headers: { Authorization: `Bearer ${token}` } },
       );
@@ -139,6 +158,19 @@ export default function Productos() {
               onChange={(e) => setNewProduct({ ...newProduct, stock: e.target.value })}
               required
             />
+            <select
+              name="categoryId"
+              value={newProduct.categoryId}
+              onChange={(e) => setNewProduct({ ...newProduct, categoryId: e.target.value })}
+              required
+            >
+              <option value="">Select category</option>
+              {categories.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.title}
+                </option>
+              ))}
+            </select>
             <button type="submit">Add Product</button>
           </form>
         )}
@@ -150,6 +182,7 @@ export default function Productos() {
               <th>Title</th>
               <th>Price</th>
               <th>Stock</th>
+              <th>Category</th>
               {role === "admin" && <th>Actions</th>}
             </tr>
           </thead>
@@ -186,6 +219,21 @@ export default function Productos() {
                         required
                       />
                     </td>
+                    <td>
+                      <select
+                        name="categoryId"
+                        value={editProduct.categoryId}
+                        onChange={handleEditChange}
+                        required
+                      >
+                        <option value="">—</option>
+                        {categories.map((c) => (
+                          <option key={c.id} value={c.id}>
+                            {c.title}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
                     {role === "admin" && (
                       <td>
                         <button onClick={handleUpdate}>Save</button>
@@ -199,6 +247,7 @@ export default function Productos() {
                     <td>{p.title}</td>
                     <td>${p.price.toFixed(2)}</td>
                     <td>{p.stock}</td>
+                    <td>{categories.find((c) => c.id === p.categoryId)?.title || "—"}</td>
                     {role === "admin" && (
                       <td>
                         <button onClick={() => startEdit(p)}>Edit</button>

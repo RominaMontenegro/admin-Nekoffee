@@ -28,9 +28,9 @@ export default function Categorias() {
     }
   };
 
+  // Crear nueva categoría
   const handleCreate = async (e) => {
     e.preventDefault();
-
     if (!newCategory.title.trim()) {
       setError("Title cannot be empty");
       return;
@@ -38,7 +38,7 @@ export default function Categorias() {
     try {
       await axios.post(
         "http://localhost:3000/categories",
-        { firstname: newCategory.title },
+        { title: newCategory.title }, // 🚩 enviar {title}
         { headers: { Authorization: `Bearer ${token}` } },
       );
       setNewCategory({ title: "" });
@@ -50,6 +50,7 @@ export default function Categorias() {
     }
   };
 
+  // Preparar edición inline
   const startEdit = (cat) => {
     setEditingId(cat.id);
     setEditCategory({ title: cat.title });
@@ -57,24 +58,22 @@ export default function Categorias() {
   };
 
   const handleEditChange = (e) => {
-    console.log(e.target.value);
     setEditCategory({ title: e.target.value });
   };
 
+  // Guardar edición
   const handleUpdate = async (e) => {
     e.preventDefault();
-    console.log(editingId);
     if (!editCategory.title.trim()) {
       setError("Title cannot be empty");
       return;
     }
     try {
-      const cosa = await axios.patch(
+      await axios.patch(
         `http://localhost:3000/categories/${editingId}`,
-        { title: editCategory.title },
+        { title: editCategory.title }, // 🚩 enviar {title}
         { headers: { Authorization: `Bearer ${token}` } },
       );
-      console.log(cosa, editCategory.title);
       setEditingId(null);
       setError("");
       fetchCategories();
@@ -84,6 +83,7 @@ export default function Categorias() {
     }
   };
 
+  // Borrar categoría
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this category?")) return;
     try {
@@ -103,7 +103,7 @@ export default function Categorias() {
       <div className="categorias-container">
         <h2>Manage Categories</h2>
 
-        {/* Create form */}
+        {/* Formulario de creación */}
         <form className="categoria-form" onSubmit={handleCreate}>
           <input
             type="text"
@@ -114,10 +114,10 @@ export default function Categorias() {
           <button type="submit">Add Category</button>
         </form>
 
-        {/* Edit error */}
+        {/* Mostrar error de validación */}
         {error && <p className="error">{error}</p>}
 
-        {/* Table */}
+        {/* Tabla de categorías */}
         <table className="categoria-table">
           <thead>
             <tr>
